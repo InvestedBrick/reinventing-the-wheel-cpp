@@ -1,8 +1,12 @@
 #include <iostream>
 #include "dynamic_array.hpp"
+#include "hashmap.hpp"
 
-void list_test(List<int> my_list){
-    
+struct test{
+    int x;
+};
+void list_test(){
+    List<int> my_list;
     my_list.append(4);
     my_list.append(2);
     my_list.append(5);
@@ -20,10 +24,32 @@ void list_test(List<int> my_list){
     for (size_t i = 0; i < my_list.get_size(); i++){
         std::cout << my_list[i] << std::endl;
     }
+    my_list.erase(1);
+    std::cout << "--------------------" << std::endl;
+    for (size_t i = 0; i < my_list.get_size(); i++){
+        std::cout << my_list[i] << std::endl;
+    }
 }
 
+void test_hashmap(){
+    static_hashmap<std::string,int> map("",10);
+    map.insert("test",3);
+    std::cout << map.retrieve("test") << std::endl;
+    map.insert("test",4);
+    std::cout << map["test"] << std::endl;
+    map.remove("test");
+    std::cout << map.retrieve("test") << std::endl;
+    map.insert("Hello World", 23);
+    map.insert("Hello World",map.retrieve("Hello World") + 1);
+    std::cout << map["Hello World"] << std::endl;
+    std::cout << "Finished" << std::endl;
+}
+
+
 int main(void){
-    List<int> my_list;
-    list_test(my_list);
+    
+    //list_test(); 
+    test_hashmap();
+
     return 0;
 }
