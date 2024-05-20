@@ -6,18 +6,17 @@ private:
     Item* data;
     size_t size;
     size_t capacity;
-
+public:
 
     void resize(size_t new_capacity){
         Item* new_data = new Item[new_capacity];
         for(size_t i = 0; i < size; i++){
-            new_data[i] = data [i];
+            new_data[i] = data[i];
         }
         delete[] data;
         capacity = new_capacity;
         data = new_data;
     }
-public:
     List(){
         size = 0;
         capacity = 1;
@@ -44,12 +43,29 @@ public:
         }
     }
 
-    Item operator[](size_t idx){
+    Item& operator[](size_t idx){
         assert(idx < size);
-        return data [idx];
+        return data[idx];
+    }
+    const Item& operator[](size_t idx) const {
+        assert(idx < size);
+        return data[idx];
+    }
+
+    List& operator=(const List& other){
+        if (this == &other) {return *this;}
+        Item* new_data = new Item[other.size];
+        for(size_t idx = 0; idx < other.size; ++idx){
+            this->new_data[idx] = other.data[idx];
+        }
+        delete[] data;
+        size = other.size;
+        this->capacity = other.capacity;
+        this->data = new_data;
+
+        return *this;
     }
     
-
     void append(Item item){
         if(size >= capacity){
             resize(capacity + capacity);
@@ -67,8 +83,21 @@ public:
         size--;
         return data[size]; //you could optionally return size[data] if you fell like a masochist today
     }
+    Item erase(size_t idx){
+        assert(idx < size);
+        Item erased_item;
+        for(size_t i = idx; i < size - 1; i++){
+            data[i] = data[i + 1];
+        }
+        size--;
+        //don't reduce the size here bc it will break everything if size = 0
+        return erased_item;
+    }
 
     size_t get_size(){
+        return this->size;
+    }
+    const size_t get_size() const {
         return this->size;
     }
     size_t get_capacity(){
