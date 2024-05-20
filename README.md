@@ -1,1 +1,1 @@
-Just a small repo for me to test out some custome implementations (I got bored of working on my compiler)
+Just a small repo for me to test out some custom implementations (I got bored of working on my compiler)
