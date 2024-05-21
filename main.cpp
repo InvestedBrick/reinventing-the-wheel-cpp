@@ -1,7 +1,7 @@
 #include <iostream>
 #include "dynamic_array.hpp"
 #include "hashmap.hpp"
-
+#include "queue.hpp"
 struct test{
     int x;
 };
@@ -29,6 +29,7 @@ void list_test(){
     for (size_t i = 0; i < my_list.get_size(); i++){
         std::cout << my_list[i] << std::endl;
     }
+    std::cout << "Finished" << std::endl;
 }
 
 void test_hashmap(){
@@ -45,11 +46,26 @@ void test_hashmap(){
     std::cout << "Finished" << std::endl;
 }
 
+void test_queue(){
+    Queue<int> my_queue;
+    my_queue.push_back(3);
+    my_queue.push_back(6);
+    my_queue.push_back(34);
+    my_queue.push_back(11);
+
+    std::cout << my_queue.back() << std::endl << my_queue.front() << std::endl;
+    std::cout << my_queue.pop_front() << std::endl;
+
+    std::cout << "Size: " << my_queue.get_size() << " Capacity: " << my_queue.get_capacity() << std::endl;
+    
+    std::cout << my_queue.front() << std::endl;
+    std::cout << "Finished" << std::endl;
+}
 
 int main(void){
     
     //list_test(); 
-    test_hashmap();
-
+    //test_hashmap();
+    test_queue();
     return 0;
 }
