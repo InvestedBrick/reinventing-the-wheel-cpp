@@ -103,10 +103,17 @@ public:
     size_t get_capacity(){
         return this->capacity;
     }
-
+    Item back(){
+        assert(size > 0);
+        return data[size - 1];
+    }
     void shrink_to_fit(){
         if(capacity > size){
             resize(size);
         }
+    }
+
+    bool empty(){
+        return size == 0;
     }
 };
