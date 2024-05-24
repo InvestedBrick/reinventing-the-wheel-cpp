@@ -1,5 +1,6 @@
 #pragma once
 #include <stdexcept>
+#include <dynamic_array.hpp>
 class BST{
 private:
     struct node{
@@ -64,6 +65,29 @@ public:
 
         }
         return nullptr; //Node was not found
+
+    }
+
+    List<int> get_elements_in_order(){
+        if(root == nullptr){
+            throw std::runtime_error("No Root found");
+            return;
+        }
+        List<int> list;
+        List<node*> node_stack;
+        node* current_node = root;
+
+        while(current_node != nullptr || !node_stack.empty()){
+            while(current_node != nullptr){
+                node_stack.append(current_node);
+                current_node = current_node->left;
+            }            
+            current_node = node_stack.back();
+            node_stack.pop();
+            list.append(current_node->data);
+            current_node = current_node->right;
+        }
+        return list;
 
     }
 
