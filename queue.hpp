@@ -28,7 +28,7 @@ public:
         }
         data[back_idx] = item;
         ++size;
-        ++back_idx;
+        back_idx = (back_idx + 1) % capacity;
     }
 
     Item front(){
@@ -58,6 +58,7 @@ public:
     }
 
     Queue(size_t capacity = 8){
+        std::cout << "Called Constructor of queue" << std::endl;
         this->capacity = capacity;
         this->size = 0;
         this->front_idx = 0;
