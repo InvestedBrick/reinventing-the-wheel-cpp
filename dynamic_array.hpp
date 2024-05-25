@@ -54,17 +54,18 @@ public:
 
     List& operator=(const List& other){
         if (this == &other) {return *this;}
-        Item* new_data = new Item[other.size];
+        Item* new_data = new Item[other.capacity];
         for(size_t idx = 0; idx < other.size; ++idx){
-            this->new_data[idx] = other.data[idx];
+            new_data[idx] = other.data[idx];
         }
         delete[] data;
         size = other.size;
         this->capacity = other.capacity;
         this->data = new_data;
-
+    
         return *this;
     }
+
     
     void append(Item item){
         if(size >= capacity){
@@ -74,7 +75,6 @@ public:
         data[size] = item;
         size++;
     }
-
     Item pop(){
         if(size <= capacity * 0.25f){
             resize(capacity * 0.5f);
@@ -85,7 +85,7 @@ public:
     }
     Item erase(size_t idx){
         assert(idx < size);
-        Item erased_item;
+        Item erased_item = data[idx];
         for(size_t i = idx; i < size - 1; i++){
             data[i] = data[i + 1];
         }
@@ -93,7 +93,6 @@ public:
         //don't reduce the size here bc it will break everything if size = 0
         return erased_item;
     }
-
     size_t get_size(){
         return this->size;
     }
@@ -112,7 +111,6 @@ public:
             resize(size);
         }
     }
-
     bool empty(){
         return size == 0;
     }
